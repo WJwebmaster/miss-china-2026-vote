@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第23屆美國華裔小姐競選 - 佳麗票選活動</title>
+</head>
+<body style="margin:0; padding:0;">
+
+<div class="beauty-contest-wrapper" id="beauty-contest-unique" style="display: block !important;">
+    <style>
+        #beauty-contest-unique, #beauty-contest-unique * { box-sizing: border-box; }
+        #beauty-contest-unique { display: block !important; font-family: "Microsoft JhengHei", sans-serif; max-width: 900px; margin: 20px auto; border: 2px solid #d4af37; padding: 25px; border-radius: 15px; background: #fff; }
+        .app-header { background: #ff6600; color: white; padding: 20px; text-align: center; border-radius: 10px; margin-bottom: 30px; }
+        .form-area { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 40px; padding: 20px; border: 2px dashed #d4af37; border-radius: 10px; background: #fdfcf9; }
+        .input-group { flex: 1; min-width: 250px; }
+        .input-group label { display: block; font-weight: bold; margin-bottom: 5px; color: #002D62; }
+        .input-group input { width: 100%; padding: 12px; border: 2px solid #d4af37; border-radius: 8px; }
+        .contest-grid { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 20px !important; }
+        .candidate-card { border: 2px solid #eee; border-radius: 15px; padding: 15px; text-align: center; cursor: pointer; transition: 0.3s; background: #fff; }
+        .candidate-card.selected { border-color: #d4af37; background: #fff9e6; box-shadow: 0 5px 15px rgba(212,175,55,0.4); }
+        .candidate-card img { width: 100%; height: 250px; object-fit: cover; object-position: top; border-radius: 10px; margin-bottom: 10px; display: block; }
+        .submit-area { text-align: center; margin-top: 30px; }
+        #submit-btn { background: #d4af37; color: white; border: none; padding: 15px 60px; font-size: 20px; border-radius: 50px; cursor: pointer; font-weight: bold; }
+        #submit-btn:disabled { background: #ccc; cursor: not-allowed; }
+        @media (max-width: 768px) { .contest-grid { grid-template-columns: 1fr !important; } }
+    </style>
+    <div class="app-header" style="background: #ff6600; color: white; padding: 20px; text-align: center; border-radius: 10px; margin-bottom: 30px;">
+    <h1 style="color: white; margin: 0;">第23屆美國華裔小姐競選</h1>
+    <h2 style="color: white; margin: 5px 0;">「誰是選美冠軍」- 佳麗票選活動</h2>
+    <h2 style="margin: 5px 0;"><span style="color: white;">更多佳麗資訊請點擊 </span>
+    <a href="https://misschinesepageant.com/usa/contestants" target="_blank" style="color: white; text-decoration: underline;">https://misschinesepageant.com/usa/contestants</a></h2>
+</div>
+    <div class="form-area">
+        <div class="input-group"><label>姓名 (必填)</label><input type="text" id="v-name" placeholder="請輸入姓名"></div>
+        <div class="input-group"><label>電話 (必填)</label><input type="tel" id="v-phone" placeholder="請輸入聯絡電話"></div>
+        <div class="input-group"><label>電郵 (必填)</label><input type="email" id="v-email" placeholder="請輸入聯絡電郵"></div>
+    </div>
+    <h3 style="color:#002D62;">請選擇您支持的佳麗：</h3>
+    <div class="contest-grid">
+        <div class="candidate-card" data-id="1"><img src="http://cms.usezlife.com/wp-content/uploads/2026/07/1_Jiayi_Zhang-scaled.jpeg"><h4>1 張嘉怡 Jiayi Zhang</h4></div>
+        <div class="candidate-card" data-id="2"><img src="http://cms.usezlife.com/wp-content/uploads/2026/07/2_Ivy-Zeng_.jpeg"><h4>2 曾文意 Ivy Zeng</h4></div>
+        <div class="candidate-card" data-id="3"><img src="http://cms.usezlife.com/wp-content/uploads/2026/07/3_Luna-Chen.jpg"><h4>3 陳尚池 Luna Chen</h4></div>
+        <div class="candidate-card" data-id="4"><img src="http://cms.usezlife.com/wp-content/uploads/2026/07/4_Audrey_Lei-scaled.jpeg"><h4>4 雷曜鎂 Audrey Lei</h4></div>
+        <div class="candidate-card" data-id="5"><img src="http://cms.usezlife.com/wp-content/uploads/2026/07/5_Lorraine_Chan-scaled.jpeg"><h4>5 陳梓穎 Lorraine Chan</h4></div>
+        <div class="candidate-card" data-id="6"><img src="http://cms.usezlife.com/wp-content/uploads/2026/07/6_Bella_Lin-scaled.jpeg"><h4>6 林樂希Bella Lin</h4></div>
+        <div class="candidate-card" data-id="7"><img src="http://cms.usezlife.com/wp-content/uploads/2026/07/7_YaWen_Lin-scaled.jpeg"><h4>7 林雅雯 Ya Wen Lin</h4></div>
+        <div class="candidate-card" data-id="8"><img src="http://cms.usezlife.com/wp-content/uploads/2026/07/8_Tiffany_Chen-scaled.jpeg"><h4>8 陳雨婷 Tiffany Chen</h4></div>
+        <div class="candidate-card" data-id="9"><img src="http://cms.usezlife.com/wp-content/uploads/2026/07/9_Xinyi_Li-scaled.jpeg"><h4>9 李欣怡 Xinyi Li</h4></div>
+    </div>
+    <div class="submit-area">
+        <button id="submit-btn" disabled>確認投票</button>
+    </div>
+</div>
+<script>
+(function() {
+    let selectedId = "";
+    const cards = document.querySelectorAll('.candidate-card');
+    const btn = document.getElementById('submit-btn');
+    const inputs = document.querySelectorAll('input');
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            cards.forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedId = card.getAttribute('data-id');
+            checkForm();
+        });
+    });
+    function checkForm() {
+        const name = document.getElementById('v-name').value.trim();
+        const phone = document.getElementById('v-phone').value.trim();
+        const email = document.getElementById('v-email').value.trim();
+        btn.disabled = !(name && phone && email && selectedId);
+    }
+    inputs.forEach(i => i.addEventListener('input', checkForm));
+    btn.addEventListener('click', function() {
+    const name = document.getElementById('v-name').value;
+    const phone = document.getElementById('v-phone').value;
+    const email = document.getElementById('v-email').value;
+    if (!name || !phone || !email || !selectedId) {
+        alert("請完整填寫資料並選擇一位佳麗！");
+        return;
+    }
+    this.innerText = "投票中...";
+    this.disabled = true;
+    const payload = new URLSearchParams({
+        voterName: name,
+        voterPhone: phone,
+        voterEmail: email,
+        contestant: selectedId
+    });
+    fetch('https://script.google.com/macros/s/AKfycbyapSTjBVLdea4nG_Et18FGC8eD580s1R6PoKKZ4UZPoh00R3DwBTPelNa_TDoaCV7TEw/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        body: payload
+    })
+    .then(() => {
+        alert("投票成功！感謝您的參與。");
+        location.reload();
+    })
+    .catch(() => {
+        alert("連線失敗，請檢查網址或權限。");
+        this.innerText = "確認投票";
+        this.disabled = false;
+    });
+});
+})();
+</script>
+
+</body>
+</html>
